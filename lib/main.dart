@@ -6,9 +6,23 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
+import 'dart:js' as js;
+import 'dart:html' as html;
 
 void main() async {
   await dotenv.load(fileName: ".env");
+  //api key injection to html
+  var firebaseConfig = {
+    "apiKey": dotenv.env['apiKey'],
+    "authDomain": dotenv.env['authDomain'],
+    "projectId": dotenv.env['projectId'],
+    "storageBucket": dotenv.env['storageBucket'],
+    "messagingSenderId": dotenv.env['messagingSenderId'],
+    "appId": dotenv.env['appId'],
+  };
+  js.context['sterling'] = firebaseConfig;
+  html.document.dispatchEvent(html.CustomEvent("sterling"));
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: FirebaseOptions(

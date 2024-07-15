@@ -41,23 +41,12 @@
 </head>
 <body>
   <script type="module">
-    // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-  
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyDqFrNI1FtSXSsORs3GRdEvLwgG1xZMhzM",
-      authDomain: "ecofusion-a418f.firebaseapp.com",
-      projectId: "ecofusion-a418f",
-      storageBucket: "ecofusion-a418f.appspot.com",
-      messagingSenderId: "1011589855894",
-      appId: "1:1011589855894:web:e3856684530cc70b0560b7"
-    };
-  
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
+    var kunc = null;
+    document.addEventListener("sterling", function (){
+      kunc = window.sterling;
+    });
+    const app = initializeApp(kunc);
   </script>
   <script>
     window.addEventListener('load', function(ev) {
