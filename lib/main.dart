@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:core_dashboard/controllers/page_controller.dart';
+import 'package:core_dashboard/controllers/performance_test_controller.dart';
 import 'package:core_dashboard/pages/monitoring/widgets/mqtt_handler.dart';
 import 'package:core_dashboard/shared/navigation/routes.dart';
 import 'package:core_dashboard/theme/app_theme.dart';
@@ -10,7 +13,7 @@ import 'dart:js' as js;
 import 'dart:html' as html;
 
 void main() async {
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: "env");
   //api key injection to html
   var firebaseConfig = {
     "apiKey": dotenv.env['apiKey'],
@@ -20,7 +23,7 @@ void main() async {
     "messagingSenderId": dotenv.env['messagingSenderId'],
     "appId": dotenv.env['appId'],
   };
-  js.context['sterling'] = firebaseConfig;
+  js.context['sterling'] = jsonEncode(firebaseConfig);
   html.document.dispatchEvent(html.CustomEvent("sterling"));
 
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +37,7 @@ void main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => PageIdController()),
     ChangeNotifierProvider(create: (_) => MqttHandler()),
+    ChangeNotifierProvider(create: (_) => PerformanceTestController()),
   ], child: const EcofusionMobile()));
 }
 
